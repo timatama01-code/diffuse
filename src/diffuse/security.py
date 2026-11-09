@@ -4,7 +4,7 @@ import errno
 import os
 import stat
 
-from typing import BinaryIO, Final, List, Optional
+from typing import Final, IO, List, Optional
 
 
 MAX_FILE_BYTES: Final[int] = 512 * 1024 * 1024
@@ -60,8 +60,8 @@ def write_file_bytes(path: str, data: bytes) -> None:
         stream.write(data)
 
 
-def read_stream_limited(stream: BinaryIO, max_bytes: int) -> bytes:
-    chunks = []
+def read_stream_limited(stream: IO[bytes], max_bytes: int) -> bytes:
+    chunks: List[bytes] = []
     size = 0
     while True:
         chunk = stream.read(min(1024 * 1024, max_bytes - size + 1))
