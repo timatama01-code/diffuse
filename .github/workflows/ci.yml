@@ -2,9 +2,9 @@ name: CI
 
 # Controls when the action will run.
 on:
-  # Triggers the workflow on push or pull request events but only for the default branch
+  # Validate main and the maintained cross-platform release branch.
   push:
-    branches: [ main ]
+    branches: [main, secure-cross-platform-0.12]
   pull_request:
     branches: [ main ]
 
