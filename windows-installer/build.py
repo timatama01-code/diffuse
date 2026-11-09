@@ -22,6 +22,7 @@ import codecs
 import glob
 import os
 import platform
+import shutil
 import subprocess
 import sys
 
@@ -151,7 +152,7 @@ for s in glob.glob('..\\po\\*.po'):
         d = os.path.join(d, p)
         mkdir(d)
     d = os.path.join(d, 'diffuse.mo')
-    if subprocess.Popen(['msgfmt', '-o', d, s]).wait() != 0:
+    if subprocess.Popen([shutil.which('msgfmt'), '-o', d, s]).wait() != 0:
         raise OSError('Failed to compile "%s" into "%s".' % (s, d))
     # GTK localisations
     d = os.path.join(locale_dir, lang)
@@ -185,7 +186,7 @@ d = '..\\src\\usr\\share\\gnome\\help\\diffuse'
 for lang in os.listdir(d):
     p = os.path.join(os.path.join(d, lang), 'diffuse.xml')
     if os.path.isfile(p):
-        cmd = ['xsltproc', '/usr/share/sgml/docbook/xsl-stylesheets/html/docbook.xsl', p]
+        cmd = [shutil.which('xsltproc'), '--nonet', '/usr/share/sgml/docbook/xsl-stylesheets/html/docbook.xsl', p]
         info = subprocess.STARTUPINFO()
         info.dwFlags |= subprocess.STARTF_USESHOWWINDOW
         info.wShowWindow = subprocess.SW_HIDE
@@ -275,9 +276,10 @@ copyFile('style.css', 'dist\\style.css')
 #
 
 # build binary installer
-copyFile(os.path.join(os.environ['ADD_PATH_HOME'], 'add_path.exe'), 'dist\\add_path.exe')
-if os.system('iscc diffuse.iss /F%s' % (INSTALLER, )) != 0:
-    raise OSError('Could not run iscc')
+iscc = shutil.which('iscc')
+if iscc is None:
+    raise OSError('Could not find iscc in PATH')
+subprocess.run([iscc, 'diffuse.iss', '/F%s' % (INSTALLER, )], check=True)
 
 #
 # Declare success.

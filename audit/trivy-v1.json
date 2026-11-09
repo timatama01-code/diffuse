@@ -1,0 +1,19 @@
+{
+  "SchemaVersion": 2,
+  "Trivy": {
+    "Version": "0.72.0"
+  },
+  "ReportID": "01a1c170-6ad7-76c5-94b5-26e997b54667",
+  "CreatedAt": "2026-11-09T20:52:12.5034437+03:00",
+  "ArtifactID": "sha256:350727f234e8fbacfaaf36d7eaf4d6b15158288d5f5f9ff282772d41267cfb39",
+  "ArtifactName": ".",
+  "ArtifactType": "repository",
+  "Metadata": {
+    "RepoURL": "https://github.com/MightyCreak/diffuse.git",
+    "Branch": "main",
+    "Commit": "2f52fad93acc8369229ba4443109133c7d904a17",
+    "CommitMsg": "Merge pull request #266 from MightyCreak/fix/app-metadata\n\nfix: fixes some issues with the appdata file",
+    "Author": "Creak \u003cromain.failliot@foolstep.com\u003e",
+    "Committer": "GitHub \u003cnoreply@github.com\u003e"
+  }
+}

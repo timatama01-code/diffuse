@@ -1,0 +1,43 @@
+{
+  "SchemaVersion": 2,
+  "Trivy": {
+    "Version": "0.72.0"
+  },
+  "ReportID": "01a1c1b5-5613-788f-ac21-ba90ee9bf684",
+  "CreatedAt": "2026-11-09T22:07:29.1715609+03:00",
+  "ArtifactID": "sha256:350727f234e8fbacfaaf36d7eaf4d6b15158288d5f5f9ff282772d41267cfb39",
+  "ArtifactName": ".",
+  "ArtifactType": "repository",
+  "Metadata": {
+    "RepoURL": "https://github.com/MightyCreak/diffuse.git",
+    "Branch": "secure-cross-platform-0.12",
+    "Commit": "2f52fad93acc8369229ba4443109133c7d904a17",
+    "CommitMsg": "Merge pull request #266 from MightyCreak/fix/app-metadata\n\nfix: fixes some issues with the appdata file",
+    "Author": "Creak \u003cromain.failliot@foolstep.com\u003e",
+    "Committer": "GitHub \u003cnoreply@github.com\u003e"
+  },
+  "Results": [
+    {
+      "Target": "requirements.txt",
+      "Class": "lang-pkgs",
+      "Type": "pip",
+      "Packages": [
+        {
+          "Name": "PyGObject",
+          "Identifier": {
+            "PURL": "pkg:pypi/pygobject@3.54.5",
+            "UID": "8f3cd6c0d7d94826"
+          },
+          "Version": "3.54.5",
+          "Locations": [
+            {
+              "StartLine": 1,
+              "EndLine": 1
+            }
+          ],
+          "AnalyzedBy": "pip"
+        }
+      ]
+    }
+  ]
+}

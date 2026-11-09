@@ -43,11 +43,8 @@ Root: HKCR; Subkey: "*\shell\{cm:OpenWithTool}\command"; ValueType: string; Valu
 Name: "{group}\{cm:ToolName}"; Filename: "{app}\diffusew.exe"
 Name: "{group}\{cm:UninstallTool}"; Filename: "{app}\unins000.exe"
 
-[Run]
-Filename: "{app}\add_path.exe"; Parameters: "{app}"; Flags: postinstall; Description: "{cm:AddToPath}"
-
-[UninstallRun]
-Filename: "{app}\add_path.exe"; Parameters: "/del {app}"
+; SECURITY: The historical add_path.exe helper was removed. The legacy
+; installer no longer modifies PATH or executes an unverified helper.
 
 [Code]
 function GetOpenWithCommand(dummy : String): String;

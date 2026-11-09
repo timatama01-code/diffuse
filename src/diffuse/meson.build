@@ -50,6 +50,7 @@ diffuse_sources = [
   'main.py',
   'preferences.py',
   'resources.py',
+  'security.py',
   'utils.py',
   'widgets.py',
   'window.py',

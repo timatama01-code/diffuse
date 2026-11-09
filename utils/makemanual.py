@@ -22,6 +22,7 @@
 # book2manual.xsl template.
 
 import os
+import shutil
 import subprocess
 
 # fetch translations for English text hard coded in the stylesheets
@@ -44,7 +45,7 @@ for lang in os.listdir(d):
         continue
 
     # convert regular DocBook manual into a form suitable for man pages
-    cmd = [ 'xsltproc', 'book2manual.xsl', os.path.join(os.path.join(d, lang), 'diffuse.xml') ]
+    cmd = [shutil.which('xsltproc'), '--nonet', 'book2manual.xsl', os.path.join(d, lang, 'diffuse.xml')]
     proc = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     proc.stdin.close()
     proc.stderr.close()
@@ -61,7 +62,7 @@ for lang in os.listdir(d):
     f.close()
 
     # convert to man page
-    cmd = [ 'xsltproc', '/usr/share/sgml/docbook/stylesheet/xsl/nwalsh/manpages/docbook.xsl', a ]
+    cmd = [shutil.which('xsltproc'), '--nonet', '/usr/share/sgml/docbook/stylesheet/xsl/nwalsh/manpages/docbook.xsl', a]
     proc = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     proc.stdin.close()
     proc.stderr.close()

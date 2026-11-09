@@ -1,4 +1,9 @@
-Below are instructions for building a Windows installer for Diffuse.
+LEGACY BUILDER - DO NOT USE FOR NEW RELEASES
+
+This directory is retained for historical reference. It no longer downloads,
+packages, or executes ADD_PATH. Use packaging/windows for Windows 10/11.
+
+Below are the historical instructions for building a Windows installer.
 
 Prerequisites:
 
@@ -24,15 +29,9 @@ Prerequisites:
 
 5) docbook-xsl (use Cygwin installer)
 
-6) ADD_PATH
-   http://blog.barisione.org/projects/#add_path
+6) GNU gettext (use Cygwin installer; install the development package)
 
-   Unzip the package and set the environment variable ADD_PATH_HOME to the full
-   path of the root directory.
-
-7) GNU gettext (use Cygwin installer; install the development package)
-
-8) Inno Setup
+7) Inno Setup
    http://jrsoftware.org/isinfo.php
 
    You may need to manually update the PATH environment variable to run

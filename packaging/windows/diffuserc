@@ -1,0 +1,7 @@
+# System-wide initialization file for the standalone Windows package.
+
+option log_print_output false
+option log_print_stack false
+option use_flatpak false
+
+import syntax/*.syntax

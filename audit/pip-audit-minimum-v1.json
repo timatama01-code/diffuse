@@ -1,0 +1,1 @@
+{"dependencies": [{"name": "pygobject", "version": "3.54.0", "vulns": []}, {"name": "flake8", "version": "7.2.0", "vulns": []}, {"name": "flake8-noqa", "version": "1.4.0", "vulns": []}, {"name": "mypy", "version": "1.16.0", "vulns": []}], "fixes": []}

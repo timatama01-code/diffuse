@@ -11,13 +11,16 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   lint:
     runs-on: ubuntu-24.04
     steps:
-    - uses: actions/checkout@v6
-    - uses: actions/setup-python@v6
+    - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+    - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
       with:
           python-version: '3.10'
 
@@ -40,8 +43,8 @@ jobs:
   meson-build-test:
     runs-on: ubuntu-24.04
     steps:
-    - uses: actions/checkout@v6
-    - uses: actions/setup-python@v6
+    - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+    - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
       with:
           python-version: '3.10'
     - run: sudo apt-get update && sudo apt-get -y install libglib2.0-dev-bin meson appstream desktop-file-utils gettext
@@ -50,16 +53,19 @@ jobs:
     - run: meson test --print-errorlogs -C build
 
   flatpak-build-test:
+    # The upstream Flatpak builder needs a privileged container. Never run it
+    # against untrusted pull-request code.
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-24.04
     container:
-      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-49
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-49@sha256:8a05aca51163a81259cc011302cc5121779c89b8b16f2819cc3fd06817d136e7
       options: --privileged
     steps:
-    - uses: actions/checkout@v6
-    - uses: actions/setup-python@v6
+    - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+    - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
       with:
           python-version: '3.10'
-    - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+    - uses: flatpak/flatpak-github-actions/flatpak-builder@79327416609af08178ad73b352877e51450790b3 # v6
       with:
         bundle: "diffuse.flatpak"
         manifest-path: "io.github.mightycreak.Diffuse.yml"

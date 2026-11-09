@@ -190,13 +190,13 @@ diffuse
 _Note: The `diffuse` command can be used to launch Diffuse as a native Mac app_
 _that is installed into `/Applications/Diffuse.app`._
 
-### Setup on Windows (deprecated)
+### Setup on Windows 10 and 11
 
-_Note:_ The Windows port is not maintained and would need some love.
-Contributions are very welcome! 😉
-
-The `windows-installer` directory contains scripts for building an installable
-package for Windows that includes all dependencies.
+The supported 64-bit package is built with MSYS2 UCRT64, PyInstaller and Inno
+Setup 6. See `packaging/windows/README.md` for the reproducible build commands
+and `.github/workflows/windows.yml` for the automated Windows build and smoke
+test. The old scripts in `windows-installer` are retained only for historical
+reference and must not be used for release builds.
 
 Diffuse can be packaged as a portable application by copying the installation
 directory to a pen drive and creating a front end that sets the

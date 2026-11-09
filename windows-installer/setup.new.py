@@ -1,6 +1,7 @@
 import codecs
 import glob
 import os
+import shutil
 import site
 import subprocess
 import sys
@@ -265,7 +266,7 @@ for s in glob.glob('..\\po\\*.po'):
         lang_dir = os.path.join(build_dir, p)
         mkdir(lang_dir)
     lang_dir = os.path.join(lang_dir, 'diffuse.mo')
-    if subprocess.Popen(['msgfmt', '-o', lang_dir, s]).wait() != 0:
+    if subprocess.Popen([shutil.which('msgfmt'), '-o', lang_dir, s]).wait() != 0:
         raise OSError('Failed to compile "%s" into "%s".' % (s, lang_dir))
     # GTK localisations
     lang_dir = os.path.join(locale_dir, lang)

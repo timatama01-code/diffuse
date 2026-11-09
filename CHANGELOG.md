@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Reproducible Windows 10/11 x64 packaging with MSYS2 UCRT64, PyInstaller,
+  and a non-administrative Inno Setup installer.
+- Security regression tests for executable resolution, file links, and input
+  size limits.
+
+### Security
+
+- Remove the unverified `add_path.exe` helper from the legacy Windows builder.
+- Pin CI actions and the privileged Flatpak image to immutable revisions.
+- Prevent the official Flatpak build from spawning unsandboxed host commands.
+- Reject linked/reparse-point inputs and limit file/VCS output sizes.
+- Disable network access while generating documentation with `xsltproc`.
+
 ### Fixed
 
 - fix: fixes some issues with the appdata file (@MightyCreak)

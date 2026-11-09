@@ -27,7 +27,7 @@ from gettext import gettext as _
 from typing import List, Optional
 from urllib.parse import urlparse
 
-from diffuse import constants, utils
+from diffuse import constants, security, utils
 from diffuse.dialogs import FileChooserDialog, NumericDialog, SearchDialog
 from diffuse.preferences import Preferences
 from diffuse.resources import theResources
@@ -394,8 +394,7 @@ class FileDiffViewer(FileDiffViewerBase):
             try:
                 if rev is None:
                     # load the contents of a plain file
-                    with open(name, 'rb') as fd:
-                        contents = fd.read()
+                    contents = security.read_file_bytes(name)
                     # get the file's modification times so we can detect changes
                     stat = os.stat(name)
                 else:
@@ -555,8 +554,7 @@ class FileDiffViewer(FileDiffViewerBase):
             encoded = codecs.encode(''.join(ss), encoding)
 
             # write file
-            with open(name, 'wb') as fd:
-                fd.write(encoded)
+            security.write_file_bytes(name, encoded)
 
             # make the edits look permanent
             self.openUndoBlock()

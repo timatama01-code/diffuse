@@ -1,0 +1,47 @@
+name: Windows 10/11
+
+on:
+  push:
+    branches: [main, secure-cross-platform-0.12]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-windows-x64:
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: msys2/setup-msys2@ec48f7c5447b3140e2b088413ae3a55687bccb6e # v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: >-
+            mingw-w64-ucrt-x86_64-python
+            mingw-w64-ucrt-x86_64-python-gobject
+            mingw-w64-ucrt-x86_64-gtk3
+            mingw-w64-ucrt-x86_64-pyinstaller
+      - name: Build standalone directory
+        shell: msys2 {0}
+        run: packaging/windows/build.sh
+      - name: Smoke test executable
+        shell: pwsh
+        run: |
+          $process = Start-Process -FilePath dist\Diffuse\Diffuse.exe -ArgumentList '--version' -Wait -PassThru
+          if ($process.ExitCode -ne 0) { throw "Diffuse --version failed: $($process.ExitCode)" }
+      - name: Build installer
+        shell: pwsh
+        run: '& "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" packaging\windows\installer.iss'
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: Diffuse-0.12.0-Windows-x64
+          path: |
+            dist/installer/*.exe
+            dist/Diffuse/SHA256SUMS
+            dist/Diffuse/MSYS2-PACKAGES.txt
+          if-no-files-found: error
+          retention-days: 14

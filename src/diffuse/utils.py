@@ -28,7 +28,7 @@ from enum import IntFlag
 from gettext import gettext as _
 from typing import Final, List, Optional, TextIO
 
-from diffuse import constants
+from diffuse import constants, security
 from diffuse.preferences import Preferences
 from diffuse.resources import theResources
 
@@ -198,7 +198,9 @@ def popenRead(
         info = None
 
     if _use_flatpak():
-        cmd = ['flatpak-spawn', '--host'] + cmd
+        cmd = security.flatpak_host_command(cmd)
+    else:
+        cmd[0] = security.resolve_executable(cmd[0], opt_cwd)
     with subprocess.Popen(
             cmd,
             stdout=subprocess.PIPE,
@@ -207,7 +209,7 @@ def popenRead(
         output: bytes
         if proc.stdout is not None:
             # read the command's output
-            output = proc.stdout.read()
+            output = security.read_stream_limited(proc.stdout, security.MAX_VCS_OUTPUT_BYTES)
             proc.stdout.close()
         if proc.wait() not in success_results:
             raise IOError('Command failed.')

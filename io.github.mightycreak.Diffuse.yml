@@ -4,12 +4,10 @@ runtime-version: '49'
 sdk: org.gnome.Sdk
 command: diffuse
 finish-args:
-  - --filesystem=home
   - --filesystem=xdg-run/gvfsd
   - --share=ipc
   - --socket=wayland
   - --socket=fallback-x11
-  - --talk-name=org.freedesktop.Flatpak
 modules:
   - name: diffuse
     buildsystem: meson
@@ -18,7 +16,8 @@ modules:
     config-opts:
       - -Dlog_print_output=true
       - -Dlog_print_stack=true
-      - -Duse_flatpak=true
+      # Use the document portal and keep VCS commands inside the sandbox.
+      - -Duse_flatpak=false
     sources:
       - type: dir
         path: .
