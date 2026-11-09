@@ -68,6 +68,12 @@ class SecurityRegressionTests(unittest.TestCase):
                     if line and not line.startswith(('#', '-r')):
                         self.assertIn('==', line)
 
+    def test_postinstall_skips_absent_optional_directories(self):
+        postinstall = (
+            ROOT / 'build-aux' / 'meson' / 'postinstall.py'
+        ).read_text(encoding='utf-8')
+        self.assertIn("if path.isdir(schemas):", postinstall)
+
 
 if __name__ == '__main__':
     unittest.main()

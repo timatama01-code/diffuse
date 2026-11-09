@@ -18,14 +18,17 @@ def require_program(name):
 
 # Package managers set this so we don't need to run
 if not destdir:
-    print('Updating icon cache...')
     icon_cache = path.join(datadir, 'icons', 'hicolor')
-    run([require_program('gtk-update-icon-cache'), '-qtf', icon_cache], check=True)
+    if path.isdir(icon_cache):
+        print('Updating icon cache...')
+        run([require_program('gtk-update-icon-cache'), '-qtf', icon_cache], check=True)
 
-    print('Updating desktop database...')
     applications = path.join(datadir, 'applications')
-    run([require_program('update-desktop-database'), '-q', applications], check=True)
+    if path.isdir(applications):
+        print('Updating desktop database...')
+        run([require_program('update-desktop-database'), '-q', applications], check=True)
 
-    print('Compiling GSettings schemas...')
     schemas = path.join(datadir, 'glib-2.0', 'schemas')
-    run([require_program('glib-compile-schemas'), schemas], check=True)
+    if path.isdir(schemas):
+        print('Compiling GSettings schemas...')
+        run([require_program('glib-compile-schemas'), schemas], check=True)
