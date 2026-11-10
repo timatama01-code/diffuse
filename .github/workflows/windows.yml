@@ -38,7 +38,7 @@ jobs:
         run: '& "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" packaging\windows\installer.iss'
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         with:
-          name: Diffuse-0.12.0-Windows-x64
+          name: Diffuse-0.12.1-Windows-x64
           path: |
             dist/installer/*.exe
             dist/Diffuse/SHA256SUMS

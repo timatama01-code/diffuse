@@ -74,6 +74,21 @@ class SecurityRegressionTests(unittest.TestCase):
         ).read_text(encoding='utf-8')
         self.assertIn("if path.isdir(schemas):", postinstall)
 
+    def test_windows_build_bundles_russian_catalog(self):
+        build = (ROOT / 'packaging' / 'windows' / 'build.sh').read_text(
+            encoding='utf-8'
+        )
+        spec = (ROOT / 'packaging' / 'windows' / 'diffuse.spec').read_text(
+            encoding='utf-8'
+        )
+        launcher = (ROOT / 'packaging' / 'windows' / 'launcher.py').read_text(
+            encoding='utf-8'
+        )
+        self.assertIn('msgfmt', build)
+        self.assertIn('diffuse.mo', build)
+        self.assertIn("'locale' / 'ru' / 'LC_MESSAGES'", spec)
+        self.assertIn("os.environ.setdefault('LANGUAGE'", launcher)
+
 
 if __name__ == '__main__':
     unittest.main()

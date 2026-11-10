@@ -24,6 +24,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Bundle the Russian application catalog in Windows packages and select the
+  Windows user language when gettext environment variables are absent.
+
 - fix: fixes some issues with the appdata file (@MightyCreak)
 
 ## [0.11.0] - 2026-03-12

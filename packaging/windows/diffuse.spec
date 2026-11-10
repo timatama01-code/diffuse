@@ -11,6 +11,10 @@ a = Analysis(
     binaries=[],
     datas=[
         (str(root / 'build' / 'windows' / 'diffuse.gresource'), '.'),
+        (
+            str(root / 'build' / 'windows' / 'locale' / 'ru' / 'LC_MESSAGES' / 'diffuse.mo'),
+            'locale/ru/LC_MESSAGES',
+        ),
         (str(root / 'packaging' / 'windows' / 'diffuserc'), '.'),
         (str(root / 'data' / 'usr' / 'share' / 'diffuse' / 'syntax'), 'syntax'),
     ],
